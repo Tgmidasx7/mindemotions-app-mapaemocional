@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Emotions - Inteligência Socioemocional</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Nunito -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Configuração de Cores e Fontes -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class', // Habilita modo escuro via classe
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Nunito', 'sans-serif'],
+                    },
+                    colors: {
+                        mindBlue: '#4FC3F7',    // Azul Celeste
+                        mindOrange: '#FFB74D',  // Laranja Suave
+                        mindGreen: '#AED581',   // Verde Maçã
+                        mindPurple: '#9575CD',  // Roxo Criativo
+                        mindDark: '#2C3E50',
+                        
+                        // Cores Cosmic EdTech
+                        cosmicBg: '#0F172A',    // Slate 900
+                        cosmicCard: '#1E293B',  // Slate 800
+                        cosmicNeon: '#38BDF8',  // Sky 400
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Transições de Tema */
+        body, div, nav, h1, h2, h3, p, section {
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        /* Animações Personalizadas */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse-btn {
+            animation: pulse-shadow 2s infinite;
+        }
+
+        @keyframes pulse-shadow {
+            0% { box-shadow: 0 0 0 0 rgba(255, 183, 77, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 183, 77, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 183, 77, 0); }
+        }
+
+        /* Gradiente de Fundo Suave (Light) */
+        .bg-gradient-mind {
+            background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+        }
+
+        /* Mockup de Celular CSS */
+        .phone-mockup {
+            border: 12px solid #2C3E50;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            transition: border-color 0.3s;
+        }
+        .dark .phone-mockup {
+            border-color: #475569;
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.2);
+        }
+        
+        .phone-notch {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40%;
+            height: 20px;
+            background: #2C3E50;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            z-index: 10;
+            transition: background-color 0.3s;
+        }
+        .dark .phone-notch {
+             background: #475569;
+        }
+
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none; 
+            background: transparent; 
+        }
+        
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 24px;
+            width: 24px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: 4px solid currentColor; /* Takes text color of parent */
+            cursor: pointer;
+            margin-top: -8px; 
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+            transition: transform 0.1s;
+        }
+
+        input[type=range]::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 8px;
+            cursor: pointer;
+            background: rgba(203, 213, 225, 0.5); /* Slate 300 equivalent */
+            border-radius: 5px;
+        }
+        .dark input[type=range]::-webkit-slider-runnable-track {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Dynamic Box Glow */
+        .dynamic-box {
+            animation: glow-box 3s infinite alternate;
+        }
+        @keyframes glow-box {
+            0% { box-shadow: 0 10px 30px -5px rgba(79, 195, 247, 0.3); }
+            100% { box-shadow: 0 10px 40px -5px rgba(174, 213, 129, 0.5); }
+        }
+
+        /* Circular Chart SVG Animation */
+        .circular-chart {
+            display: block;
+            margin: 0 auto;
+            max-width: 80%;
+            max-height: 250px;
+        }
+        .circle-bg {
+            fill: none;
+            stroke: #eee;
+            stroke-width: 3.8;
+        }
+        .dark .circle-bg {
+            stroke: #334155;
+        }
+        .circle {
+            fill: none;
+            stroke-width: 2.8;
+            stroke-linecap: round;
+            animation: progress 1s ease-out forwards;
+            transition: stroke-dasharray 0.3s ease;
+        }
+        @keyframes progress {
+            0% { stroke-dasharray: 0 100; }
+        }
+        .percentage {
+            fill: #666;
+            font-family: 'Nunito', sans-serif;
+            font-weight: bold;
+            font-size: 0.5em;
+            text-anchor: middle;
+            transition: fill 0.3s;
+        }
+        .dark .percentage {
+            fill: #fff;
+        }
+
+    </style>
+</head>
+<body class="font-sans text-gray-700 bg-gray-50 dark:bg-cosmicBg dark:text-gray-200 overflow-x-hidden transition-colors duration-300">
+
+    <!-- Theme Toggle & Navigation -->
+    <nav class="fixed w-full z-50 bg-white/95 dark:bg-cosmicBg/95 backdrop-blur-md shadow-sm transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fa-solid fa-brain text-mindPurple text-2xl animate-pulse"></i>
+                    <span class="font-bold text-xl text-mindDark dark:text-white">Mind Emotions</span>
+                </div>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#solucao" class="text-gray-600 dark:text-gray-300 hover:text-mindBlue font-semibold transition">Solução</a>
+                    <a href="#graficos-interativos" class="text-gray-600 dark:text-gray-300 hover:text-mindBlue font-semibold transition">Resultados</a>
+                    <a href="#como-funciona" class="text-gray-600 dark:text-gray-300 hover:text-mindBlue font-semibold transition">Como Funciona</a>
+                    <a href="#planos" class="text-gray-600 dark:text-gray-300 hover:text-mindBlue font-semibold transition">Planos</a>
+                    
+                    <!-- Theme Toggle Button -->
+                    <button onclick="toggleTheme()" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 transition focus:outline-none" title="Alternar Tema">
+                        <i id="theme-icon" class="fa-solid fa-moon text-mindDark dark:text-yellow-400 text-lg"></i>
+                    </button>
+
+                    <a href="#contato" class="bg-mindOrange text-white px-4 py-2 rounded-full font-bold hover:bg-orange-500 transition shadow-md hover:shadow-lg transform hover:-translate-y-0.5">Investir</a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button onclick="toggleTheme()" class="p-2 rounded-full bg-gray-100 dark:bg-slate-700 focus:outline-none">
+                        <i id="theme-icon-mobile" class="fa-solid fa-moon text-mindDark dark:text-yellow-400"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-600 dark:text-white hover:text-mindBlue focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white dark:bg-cosmicCard shadow-lg absolute w-full transition-colors">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#solucao" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-mindBlue hover:bg-gray-50 dark:hover:bg-slate-700">Solução</a>
+                <a href="#graficos-interativos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-mindBlue hover:bg-gray-50 dark:hover:bg-slate-700">Resultados</a>
+                <a href="#como-funciona" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:text-mindBlue hover:bg-gray-50 dark:hover:bg-slate-700">Como Funciona</a>
+                <a href="#contato" class="block px-3 py-2 rounded-md text-base font-bold text-mindOrange">Fale Conosco</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-24 pb-12 lg:pt-32 lg:pb-24 bg-gradient-to-br from-blue-100 via-white to-purple-100 dark:from-cosmicBg dark:to-slate-900 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center lg:text-left lg:flex lg:items-center lg:gap-12">
+                <div class="lg:w-1/2 reveal active">
+                    <!-- Badge Mais Vibrante -->
+                    <span class="inline-block py-2 px-4 rounded-full bg-gradient-to-r from-mindBlue to-mindPurple text-white text-base font-extrabold mb-6 tracking-wide shadow-lg transform hover:scale-105 transition duration-300">
+                        🚀 O Futuro da Educação Socioemocional
+                    </span>
+                    
+                    <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold text-mindDark dark:text-white leading-tight mb-6">
+                        Mind Emotion <span class="text-transparent bg-clip-text bg-gradient-to-r from-mindPurple to-mindBlue">Pro+</span><br>
+                        
+                        <!-- Subtitulo Maior e Mais Vibrante -->
+                        <span class="text-2xl md:text-4xl text-transparent bg-clip-text bg-gradient-to-r from-mindBlue to-mindPurple font-bold block mt-4 drop-shadow-sm">
+                            Transformando sentimentos em resultados escolares.
+                        </span>
+                    </h1>
+                    
+                    <!-- Citação Maior -->
+                    <blockquote class="border-l-8 border-mindOrange pl-6 italic text-gray-700 dark:text-gray-200 mb-8 text-xl md:text-2xl font-medium">
+                        "Do estresse à serenidade: transforme reações impulsivas em respostas conscientes."
+                    </blockquote>
+
+                    <!-- Paragrafo Maior -->
+                    <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed font-normal">
+                        <strong class="text-mindDark dark:text-white">70% das crianças</strong> têm sinais de ansiedade, mas ninguém as ouve. Nós mapeamos emoções e geramos inteligência para escolas e pais.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                        <a href="#contato" class="pulse-btn bg-gradient-to-r from-mindOrange to-orange-500 text-white font-extrabold py-5 px-10 rounded-full shadow-2xl hover:bg-orange-600 transition transform hover:scale-105 text-center flex items-center justify-center gap-3 text-lg">
+                            <i class="fa-brands fa-whatsapp text-2xl"></i>
+                            Quero Conhecer
+                        </a>
+                        <a href="#video" class="bg-white dark:bg-transparent dark:text-white text-mindBlue border-2 border-mindBlue font-extrabold py-5 px-10 rounded-full shadow-md hover:bg-blue-50 dark:hover:bg-slate-800 transition transform hover:scale-105 text-center text-lg">
+                            Ver Apresentação
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Imagem Ilustrativa (FOTO REAL) -->
+                <div class="lg:w-1/2 mt-12 lg:mt-0 relative float-animation">
+                    <div class="bg-white dark:bg-cosmicCard rounded-3xl shadow-2xl overflow-hidden border-4 border-white dark:border-slate-700 transform rotate-2 hover:rotate-0 transition duration-500">
+                        <!-- Real Image from Unsplash -->
+                        <div class="h-80 md:h-96 w-full relative group">
+                            <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=800&q=80" alt="Crianças na sala de aula" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                            
+                            <!-- Overlay Gradient -->
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                            
+                            <div class="absolute bottom-6 left-8 text-white text-left">
+                                <p class="font-extrabold text-2xl drop-shadow-md mb-1 text-mindOrange"><i class="fa-solid fa-heart"></i> Saúde Emocional</p>
+                                <p class="text-lg opacity-90 font-medium">"Seu aluno não só estuda — ele se conhece."</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Floating Badge -->
+                    <div class="absolute -bottom-6 -left-6 bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce border-2 border-mindGreen/20 dark:border-slate-600">
+                        <div class="bg-mindGreen/20 p-3 rounded-full text-mindGreen">
+                            <i class="fa-solid fa-chart-line text-3xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 font-bold uppercase tracking-wide">Melhora Escolar</p>
+                            <p class="text-2xl font-extrabold text-mindDark dark:text-white">+40%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-16 text-center animate-bounce">
+                <p class="text-sm text-gray-500 font-bold mb-2 uppercase tracking-widest">Deslize para descobrir</p>
+                <a href="#graficos-interativos" class="text-mindPurple hover:text-purple-700 transition">
+                    <i class="fa-solid fa-chevron-down text-3xl"></i>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Background Shapes para mais vibração -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+            <div class="absolute -top-20 -right-20 w-96 h-96 bg-mindBlue/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-overlay"></div>
+            <div class="absolute top-1/2 -left-20 w-80 h-80 bg-mindPurple/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-overlay"></div>
+            <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-mindOrange/20 rounded-full blur-3xl mix-blend-multiply dark:mix-blend-overlay"></div>
+        </div>
+    </header>
+
+    <!-- O DESAFIO & GRÁFICOS INTERATIVOS (Seção Otimizada) -->
+    <section id="graficos-interativos" class="py-16 bg-white dark:bg-cosmicBg relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-mindBlue/10 dark:bg-mindBlue/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Coluna Esquerda: O Problema & Texto -->
+                <div class="reveal">
+                    <h2 class="text-3xl font-extrabold text-mindDark dark:text-white mb-4">O Desafio Invisível 💡</h2>
+                    <h3 class="text-xl text-mindPurple font-bold mb-6">"Professores mais conectados, turmas mais harmônicas."</h3>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex gap-3">
+                            <div class="mt-1 text-red-500"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <p class="text-gray-600 dark:text-gray-300"><strong>Professores "Cegos":</strong> Não possuem ferramentas para identificar as emoções reais que os alunos sentem.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <div class="mt-1 text-yellow-500"><i class="fa-solid fa-house-chimney-crack"></i></div>
+                            <p class="text-gray-600 dark:text-gray-300"><strong>Pais Desconectados:</strong> A família só descobre os problemas quando as notas caem.</p>
+                        </li>
+                        <li class="flex gap-3">
+                            <div class="mt-1 text-blue-500"><i class="fa-solid fa-school"></i></div>
+                            <p class="text-gray-600 dark:text-gray-300"><strong>Desafio BNCC:</strong> A escola precisa mensurar competências socioemocionais, mas não tem dados.</p>
+                        </li>
+                    </ul>
+
+                    <div class="bg-gray-50 dark:bg-slate-800 p-6 rounded-2xl border border-gray-100 dark:border-slate-700">
+                        <p class="italic text-gray-500 dark:text-gray-400 mb-2 text-sm">Controle a simulação:</p>
+                        <!-- Interactive Sliders Controls -->
+                        
+                        <div class="mb-4">
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span class="text-mindBlue dark:text-mindBlue">Nível de Foco</span>
+                                <span id="label-foco" class="text-gray-700 dark:text-white">45%</span>
+                            </div>
+                            <input type="range" id="slider-foco" min="0" max="100" value="45" class="w-full text-mindBlue h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between text-sm font-bold mb-1">
+                                <span class="text-mindGreen dark:text-mindGreen">Inteligência Emocional</span>
+                                <span id="label-performance" class="text-gray-700 dark:text-white">88%</span>
+                            </div>
+                            <input type="range" id="slider-performance" min="0" max="100" value="88" class="w-full text-mindGreen h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer">
+                        </div>
+                         <p class="text-xs text-gray-400 mt-3 text-center">Mova os sliders para ver o impacto nos gráficos ao lado 👉</p>
+                    </div>
+                </div>
+
+                <!-- Coluna Direita: Gráficos Dinâmicos -->
+                <div class="reveal delay-100">
+                    <div class="bg-gradient-to-br from-white to-gray-50 dark:from-cosmicCard dark:to-slate-900 p-8 rounded-3xl shadow-2xl border border-gray-100 dark:border-slate-700 relative">
+                        <div class="absolute top-4 right-4 text-xs text-gray-400 uppercase font-bold tracking-wider">Simulação Ao Vivo</div>
+                        
+                        <div class="grid grid-cols-2 gap-6 items-end h-64 mt-4">
+                            <!-- Gráfico Cartesiano (Foco) -->
+                            <div class="flex flex-col items-center justify-end h-full w-full">
+                                <div class="text-sm font-bold text-mindBlue mb-2">Foco da Turma</div>
+                                <div class="w-full bg-gray-100 dark:bg-slate-700 rounded-t-xl relative h-48 w-24 mx-auto overflow-hidden">
+                                    <div id="bar-foco" class="absolute bottom-0 left-0 w-full bg-mindBlue transition-all duration-300 ease-out flex items-start justify-center pt-2 text-white font-bold text-xs" style="height: 45%;">
+                                        <span class="bg-black/20 px-1 rounded">45%</span>
+                                    </div>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-2">Gráfico Cartesiano</div>
+                            </div>
+
+                            <!-- Gráfico Circular (Desempenho) -->
+                            <div class="flex flex-col items-center justify-end h-full">
+                                <div class="text-sm font-bold text-mindGreen mb-2">Desempenho</div>
+                                <div class="relative w-32 h-32">
+                                    <svg viewBox="0 0 36 36" class="circular-chart text-mindGreen">
+                                        <path class="circle-bg"
+                                            d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        />
+                                        <path id="circle-performance" class="circle"
+                                            stroke-dasharray="88, 100"
+                                            stroke="currentColor"
+                                            d="M18 2.0845
+                                            a 15.9155 15.9155 0 0 1 0 31.831
+                                            a 15.9155 15.9155 0 0 1 0 -31.831"
+                                        />
+                                        <text x="18" y="20.35" class="percentage text-gray-700 dark:text-white" id="text-performance">88%</text>
+                                    </svg>
+                                </div>
+                                <div class="text-xs text-gray-400 mt-2">Circular Integrado</div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                "Alunos que se autorregulam aprendem mais, retêm melhor e inspiram seus pares."
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- A SOLUÇÃO -->
+    <section id="solucao" class="py-16 bg-gradient-mind dark:bg-none dark:bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:flex lg:items-center lg:gap-16">
+                <!-- Content -->
+                <div class="lg:w-1/2 reveal">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-mindDark dark:text-white mb-6">
+                        Diário Digital e Mapa de Emoções ❤️
+                    </h2>
+                    <h4 class="text-lg text-mindPurple font-bold mb-4">"Gamificação que educa o coração: cada conquista fortalece uma competência emocional."</h4>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 mb-8">
+                        O <strong class="text-mindPurple">Mind Emotions</strong> é um aplicativo lúdico, seguro e cientificamente embasado que transforma o intangível em dados acionáveis.
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-mindGreen rounded-full flex items-center justify-center text-white mt-1">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-gray-700 dark:text-gray-300 text-lg"><strong>Mapeia emoções diárias:</strong> Respostas com jogos, cores e avatares.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-mindOrange rounded-full flex items-center justify-center text-white mt-1">
+                                <i class="fa-solid fa-file-waveform"></i>
+                            </div>
+                            <span class="text-gray-700 dark:text-gray-300 text-lg"><strong>Relatórios automáticos:</strong> Insights direto no WhatsApp dos pais.</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="flex-shrink-0 w-8 h-8 bg-mindBlue rounded-full flex items-center justify-center text-white mt-1">
+                                <i class="fa-solid fa-users-viewfinder"></i>
+                            </div>
+                            <span class="text-gray-700 dark:text-gray-300 text-lg"><strong>Conexão Total:</strong> Une Família, Escola e Terapeutas em tempo real.</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Mock Dashboard Visual (PHONE MOCKUP) -->
+                <div class="lg:w-1/2 mt-12 lg:mt-0 reveal delay-200 flex justify-center">
+                    <div class="phone-mockup w-72 h-[550px] bg-gray-50 dark:bg-slate-800">
+                        <div class="phone-notch"></div>
+                        
+                        <!-- App Content Simulation -->
+                        <div class="h-full flex flex-col">
+                            <!-- App Header -->
+                            <div class="bg-mindPurple text-white p-6 pt-10 rounded-b-3xl shadow-md">
+                                <div class="flex justify-between items-center">
+                                    <i class="fa-solid fa-bars"></i>
+                                    <span class="font-bold">MindKids</span>
+                                    <i class="fa-solid fa-bell"></i>
+                                </div>
+                                <div class="mt-4 flex items-center gap-3">
+                                    <div class="w-10 h-10 bg-white/30 rounded-full flex items-center justify-center">
+                                        <i class="fa-solid fa-graduation-cap"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs opacity-80">Turma</p>
+                                        <p class="font-bold">5º Ano B</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- App Body -->
+                            <div class="p-4 flex-1 overflow-y-auto">
+                                <div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm mb-4">
+                                    <p class="text-xs text-gray-500 dark:text-gray-300 font-bold mb-2">CLIMA EMOCIONAL</p>
+                                    <div class="flex items-end gap-2 h-24">
+                                        <div class="w-1/3 bg-mindGreen rounded-t-lg h-[80%] relative group">
+                                            <span class="absolute -top-4 left-1/2 -translate-x-1/2 text-xs font-bold text-gray-600 dark:text-gray-300">80%</span>
+                                        </div>
+                                        <div class="w-1/3 bg-mindBlue rounded-t-lg h-[40%] relative"></div>
+                                        <div class="w-1/3 bg-mindOrange rounded-t-lg h-[20%] relative"></div>
+                                    </div>
+                                    <div class="flex justify-between text-xs text-gray-400 mt-2">
+                                        <span>Feliz</span>
+                                        <span>Neutro</span>
+                                        <span>Triste</span>
+                                    </div>
+                                </div>
+
+                                <div class="bg-white dark:bg-slate-700 p-4 rounded-xl shadow-sm mb-4 border-l-4 border-mindOrange">
+                                    <div class="flex gap-3">
+                                        <div class="mt-1 text-mindOrange"><i class="fa-solid fa-circle-exclamation"></i></div>
+                                        <div>
+                                            <p class="text-sm font-bold text-gray-800 dark:text-white">Alerta: Ansiedade</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-300 mt-1">3 alunos reportaram "Medo" antes da prova.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-gradient-to-r from-mindBlue to-blue-400 p-4 rounded-xl shadow-sm text-white">
+                                    <p class="text-sm font-bold">Missão da Semana 🎯</p>
+                                    <p class="text-xs mt-1 opacity-90">Praticar a escuta ativa com o colega.</p>
+                                    <div class="w-full bg-white/30 h-1.5 rounded-full mt-2">
+                                        <div class="bg-white w-2/3 h-full rounded-full"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA (REORGANIZADO E VIBRANTE) -->
+    <section id="como-funciona" class="py-16 bg-white dark:bg-cosmicBg overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-mindDark dark:text-white">Como Funciona? 🎮</h2>
+                <p class="text-lg text-gray-500 dark:text-gray-400 mt-2">Apenas 7 minutos por dia para transformar a sala de aula.</p>
+            </div>
+
+            <!-- Grid de Passos Vibrantes -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+                <!-- Step 1 -->
+                <div class="reveal group">
+                    <div class="h-full bg-white dark:bg-slate-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-700 overflow-hidden">
+                        <div class="h-2 bg-gradient-to-r from-purple-500 to-indigo-500"></div>
+                        <div class="p-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg group-hover:scale-110 transition">
+                                1
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Check-in Diário</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Ao iniciar o dia, o aluno acessa o app e responde de forma rápida e intuitiva como está se sentindo, usando avatares expressivos e seleção de cores.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="reveal delay-100 group">
+                    <div class="h-full bg-white dark:bg-slate-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-700 overflow-hidden">
+                        <div class="h-2 bg-gradient-to-r from-blue-400 to-cyan-400"></div>
+                        <div class="p-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-blue-400 to-cyan-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg group-hover:scale-110 transition">
+                                2
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Jornada Gamificada</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Testes lúdicos, histórias interativas e quizzes emocionais mantêm o engajamento alto, enquanto o sistema coleta dados comportamentais.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="reveal delay-200 group">
+                    <div class="h-full bg-white dark:bg-slate-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-700 overflow-hidden">
+                        <div class="h-2 bg-gradient-to-r from-orange-400 to-yellow-400"></div>
+                        <div class="p-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-orange-400 to-yellow-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg group-hover:scale-110 transition">
+                                3
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Inteligência de Dados</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                Nossa IA processa as respostas e gera gráficos de tendências, identificando alunos em risco e o clima geral da turma.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4 -->
+                <div class="reveal delay-300 group">
+                    <div class="h-full bg-white dark:bg-slate-800 rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 border border-gray-100 dark:border-slate-700 overflow-hidden">
+                        <div class="h-2 bg-gradient-to-r from-green-400 to-emerald-500"></div>
+                        <div class="p-6">
+                            <div class="w-14 h-14 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-lg group-hover:scale-110 transition">
+                                4
+                            </div>
+                            <h4 class="text-xl font-bold text-gray-800 dark:text-white mb-2">Intervenção & Sucesso</h4>
+                            <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
+                                A escola recebe ações personalizadas e a turma desbloqueia recompensas coletivas ao melhorar o índice de bem-estar.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+             <blockquote class="text-center italic text-xl text-gray-500 dark:text-gray-400 mb-12 max-w-2xl mx-auto">
+                 "Inteligência emocional não é disciplina — é a base para todas as disciplinas."
+             </blockquote>
+
+        </div>
+    </section>
+
+    <!-- VALIDADO POR ESPECIALISTAS (Stats - RESULTS SECTION OPTIMIZED) -->
+    <section class="py-16 bg-mindDark dark:bg-slate-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-bold mb-12 reveal">Resultados em Pilotos Reais 📊</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Stat 1 -->
+                <div class="bg-white/5 dark:bg-white/5 rounded-3xl p-8 border border-white/10 backdrop-blur-sm reveal hover:transform hover:-translate-y-2 transition duration-300">
+                    <div class="flex items-baseline justify-center text-mindGreen mb-4">
+                        <span class="text-7xl md:text-8xl font-black counter" data-target="89">0</span>
+                        <span class="text-4xl md:text-5xl font-bold">%</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Mais Ouvidas</h3>
+                    <p class="text-lg text-gray-300">Das crianças relataram sentir-se acolhidas e compreendidas.</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="bg-white/5 dark:bg-white/5 rounded-3xl p-8 border border-white/10 backdrop-blur-sm reveal delay-100 hover:transform hover:-translate-y-2 transition duration-300">
+                    <div class="flex items-baseline justify-center text-mindBlue mb-4">
+                        <span class="text-7xl md:text-8xl font-black counter" data-target="76">0</span>
+                        <span class="text-4xl md:text-5xl font-bold">%</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Visibilidade</h3>
+                    <p class="text-lg text-gray-300">Dos professores identificaram padrões emocionais antes invisíveis.</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="bg-white/5 dark:bg-white/5 rounded-3xl p-8 border border-white/10 backdrop-blur-sm reveal delay-200 hover:transform hover:-translate-y-2 transition duration-300">
+                    <div class="flex items-baseline justify-center text-mindOrange mb-4">
+                        <span class="text-7xl md:text-8xl font-black counter" data-target="40">0</span>
+                        <span class="text-4xl md:text-5xl font-bold">%</span>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2">Desempenho</h3>
+                    <p class="text-lg text-gray-300">Aumento direto nas notas e participação em sala de aula.</p>
+                </div>
+            </div>
+
+            <!-- Testimonial (COM FOTO REAL) -->
+            <div class="mt-16 bg-white/10 p-8 rounded-3xl max-w-3xl mx-auto backdrop-blur-sm border border-white/20 reveal">
+                <i class="fa-solid fa-quote-left text-4xl text-mindPurple mb-4"></i>
+                <p class="text-xl md:text-2xl italic font-light mb-6">
+                    "Finalmente um app que fala a língua do coração da criança."
+                </p>
+                <div class="flex items-center justify-center gap-4">
+                     <!-- Real Avatar Image -->
+                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80" alt="Psicopedagoga" class="w-12 h-12 rounded-full object-cover border-2 border-mindPurple">
+                    <div class="text-left">
+                        <p class="font-bold">Psicopedagoga Parceira</p>
+                        <p class="text-sm text-gray-400">Teresina/PI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MERCADO & PLANOS -->
+    <section id="planos" class="py-16 bg-gray-50 dark:bg-cosmicBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Market Stats -->
+            <div class="mb-16 reveal">
+                <h2 class="text-3xl font-extrabold text-mindDark dark:text-white text-center mb-8">Um Oceano Azul com Urgência Social 🌊</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm">
+                        <p class="text-2xl font-bold text-mindBlue">52 Mi</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Crianças na escola</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm">
+                        <p class="text-2xl font-bold text-mindPurple">100%</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Exigência BNCC</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm">
+                        <p class="text-2xl font-bold text-mindGreen">87%</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Pais pagariam</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm">
+                        <p class="text-2xl font-bold text-mindOrange">Lei 14.531</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Exige Planos Mentais</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pricing Tables -->
+            <h3 class="text-2xl font-bold text-center text-mindDark dark:text-white mb-8 reveal">Planos Escaláveis</h3>
+            <div class="grid md:grid-cols-3 gap-6 reveal">
+                <!-- Card 1 -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-slate-700 hover:-translate-y-2 transition duration-300">
+                    <h4 class="text-lg font-bold text-gray-500 dark:text-gray-400">Aluno Individual</h4>
+                    <p class="text-3xl font-extrabold text-mindDark dark:text-white my-4">R$ 24,90<span class="text-sm font-normal text-gray-400">/mês</span></p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><i class="fa-solid fa-check text-green-500"></i> Acesso completo</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><i class="fa-solid fa-check text-green-500"></i> Relatórios WhatsApp</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><i class="fa-solid fa-check text-green-500"></i> Histórias Premium</li>
+                    </ul>
+                    <a href="#contato" class="block text-center w-full py-2 border-2 border-gray-200 dark:border-slate-600 rounded-full font-bold text-gray-600 dark:text-gray-300 hover:border-mindBlue hover:text-mindBlue transition">Selecionar</a>
+                </div>
+
+                <!-- Card 2 (Featured) -->
+                <div class="bg-mindDark dark:bg-slate-900 p-6 rounded-3xl shadow-xl border-4 border-mindBlue transform scale-105 relative z-10">
+                    <div class="absolute top-0 right-0 bg-mindBlue text-white text-xs font-bold px-3 py-1 rounded-bl-xl rounded-tr-xl">MAIS POPULAR</div>
+                    <h4 class="text-lg font-bold text-white">Turma Escolar</h4>
+                    <p class="text-3xl font-extrabold text-white my-4">R$ 99,00<span class="text-sm font-normal text-gray-400">/turma/mês</span></p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i class="fa-solid fa-check text-mindBlue"></i> Até 35 alunos</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i class="fa-solid fa-check text-mindBlue"></i> Relatórios Semanais</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i class="fa-solid fa-check text-mindBlue"></i> Ranking Emocional</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-300"><i class="fa-solid fa-check text-mindBlue"></i> Suporte Pedagógico</li>
+                    </ul>
+                    <a href="#contato" class="block text-center w-full py-3 bg-mindBlue text-white rounded-full font-bold hover:bg-sky-500 transition shadow-lg">Agendar Demo</a>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="bg-white dark:bg-slate-800 p-6 rounded-3xl shadow-lg border border-gray-100 dark:border-slate-700 hover:-translate-y-2 transition duration-300">
+                    <h4 class="text-lg font-bold text-gray-500 dark:text-gray-400">Institucional (Anual)</h4>
+                    <p class="text-3xl font-extrabold text-mindDark dark:text-white my-4">R$ 899<span class="text-sm font-normal text-gray-400">/turma/ano</span></p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><i class="fa-solid fa-check text-green-500"></i> Economia de 25%</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><i class="fa-solid fa-check text-green-500"></i> Painel Coletivo</li>
+                        <li class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300"><i class="fa-solid fa-check text-green-500"></i> Treinamento Prof.</li>
+                    </ul>
+                    <a href="#contato" class="block text-center w-full py-2 border-2 border-gray-200 dark:border-slate-600 rounded-full font-bold text-gray-600 dark:text-gray-300 hover:border-mindPurple hover:text-mindPurple transition">Consultar</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- INVESTIMENTO & CTA FINAL -->
+    <section id="contato" class="py-20 bg-gradient-to-t from-mindBlue/10 to-white dark:from-slate-900 dark:to-cosmicBg relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-5xl font-extrabold text-mindDark dark:text-white mb-6 reveal">
+                Junte-se à Revolução da Inteligência Emocional
+            </h2>
+            <p class="text-lg text-mindPurple font-medium mb-8">"Pare de sufocar sentimentos. Comece a transformá-los em força."</p>
+            
+            <div class="bg-white dark:bg-slate-800 p-8 rounded-3xl shadow-xl border border-gray-100 dark:border-slate-700 mb-10 reveal delay-100 text-left">
+                <h3 class="text-xl font-bold text-mindOrange mb-4">⚡ Por Que Investir Agora?</h3>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300"><i class="fa-solid fa-circle-check text-green-500"></i> <span>Demanda explodindo (Pós-pandemia)</span></div>
+                    <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300"><i class="fa-solid fa-circle-check text-green-500"></i> <span>Modelo B2B2C Recorrente</span></div>
+                    <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300"><i class="fa-solid fa-circle-check text-green-500"></i> <span>Time fundador experiente</span></div>
+                    <div class="flex items-center gap-2 text-gray-600 dark:text-gray-300"><i class="fa-solid fa-circle-check text-green-500"></i> <span>Tecnologia pronta para escalar</span></div>
+                </div>
+            </div>
+
+            <div class="reveal delay-200">
+                <p class="text-xl text-gray-600 dark:text-gray-300 mb-8">Agende uma apresentação do App e veja o futuro da educação.</p>
+                
+                <!-- WHATSAPP CTA -->
+                <a href="https://wa.me/5586999154867?text=Ol%C3%A1%2C%20quero%20saber%20mais%20sobre%20a%20Mind%20Emotions." target="_blank" class="pulse-btn inline-flex items-center gap-3 bg-green-500 text-white font-extrabold py-5 px-10 rounded-full text-xl shadow-2xl hover:bg-green-600 transition transform hover:scale-105">
+                    <i class="fa-brands fa-whatsapp text-3xl"></i>
+                    Falar com Thiago Aragão
+                </a>
+                
+                <div class="mt-8 text-gray-500 dark:text-gray-400">
+                    <p class="mb-2"><i class="fa-regular fa-envelope"></i> contato@mindemotions.com.br</p>
+                    <p><i class="fa-solid fa-phone"></i> (86) 99915-4867</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-900 border-t border-gray-200 dark:border-slate-800 py-8">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center gap-2 mb-4">
+                <i class="fa-solid fa-brain text-mindPurple text-xl"></i>
+                <span class="font-bold text-gray-800 dark:text-white">Mind Emotions</span>
+            </div>
+            <p class="text-sm text-gray-400">© 2025 Mind Emotions. Todos os direitos reservados. Teresina, Piauí.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Interactions -->
+    <script>
+        // 1. Theme Toggle Logic
+        const html = document.documentElement;
+        const themeIcon = document.getElementById('theme-icon');
+        const themeIconMobile = document.getElementById('theme-icon-mobile');
+
+        function toggleTheme() {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                themeIconMobile.classList.remove('fa-moon');
+                themeIconMobile.classList.add('fa-sun');
+            } else {
+                themeIcon.classList.add('fa-moon');
+                themeIcon.classList.remove('fa-sun');
+                themeIconMobile.classList.add('fa-moon');
+                themeIconMobile.classList.remove('fa-sun');
+            }
+        }
+
+        // 2. Interactive Charts & Sliders Logic
+        const sliderFoco = document.getElementById('slider-foco');
+        const barFoco = document.getElementById('bar-foco');
+        const labelFoco = document.getElementById('label-foco');
+
+        const sliderPerf = document.getElementById('slider-performance');
+        const circlePerf = document.getElementById('circle-performance');
+        const textPerf = document.getElementById('text-performance');
+        const labelPerf = document.getElementById('label-performance');
+
+        // Logic for Cartesian Chart (Focus)
+        sliderFoco.addEventListener('input', (e) => {
+            const val = e.target.value;
+            barFoco.style.height = `${val}%`;
+            barFoco.innerHTML = `<span class="bg-black/20 px-1 rounded">${val}%</span>`;
+            labelFoco.innerText = `${val}%`;
+        });
+
+        // Logic for Circular Chart (Performance)
+        // Stroke-dasharray is "value, 100" where max is 100
+        sliderPerf.addEventListener('input', (e) => {
+            const val = e.target.value;
+            circlePerf.setAttribute('stroke-dasharray', `${val}, 100`);
+            textPerf.innerHTML = `${val}%`;
+            labelPerf.innerText = `${val}%`;
+        });
+
+
+        // 3. Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        // Trigger once on load
+        reveal();
+
+        // 4. Animated Counters
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+
+        const animateCounters = () => {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            const counterSection = document.querySelector('.counter')?.getBoundingClientRect().top;
+
+            if(counterSection && counterSection < triggerBottom && !hasCounted) {
+                hasCounted = true;
+                counters.forEach(counter => {
+                    const updateCount = () => {
+                        const target = +counter.getAttribute('data-target');
+                        const count = +counter.innerText;
+                        const increment = target / 50;
+
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + increment);
+                            setTimeout(updateCount, 40);
+                        } else {
+                            counter.innerText = target;
+                        }
+                    };
+                    updateCount();
+                });
+            }
+        }
+        window.addEventListener('scroll', animateCounters);
+
+        // 5. Mobile Menu Toggle
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+
+        // 6. Smooth Scroll for Anchor Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                menu.classList.add('hidden'); // Close mobile menu if open
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
