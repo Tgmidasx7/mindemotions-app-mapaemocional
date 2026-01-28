@@ -1,0 +1,1 @@
+# mindemotions-app-mapaemocional
